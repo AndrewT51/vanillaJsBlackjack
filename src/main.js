@@ -25,7 +25,7 @@ function gameReset(){
     dealerCardPosition.innerHTML = '';
     yourDisplayedTotal.textContent = '0';
     dealerDisplayedTotal.textContent = '0';
-  },1500)
+  },firstGame?0:1500)
   shuffledDeck = shuffle(newDeck())
   dealersAces = [];
   playersAces = [];
