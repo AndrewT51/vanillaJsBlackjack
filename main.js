@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
   let clnStartButton;// = startButton.cloneNode(true);
   let hitButton = document.createElement('button');
   let holdButton = document.createElement('button');
-  let yourDisplayedTotal = document.getElementById('yourTotal')
-  let dealerDisplayedTotal = document.getElementById('dealerTotal')
+  let yourDisplayedTotal = document.getElementById('yourTotalVal')
+  let dealerDisplayedTotal = document.getElementById('dealerTotalVal')
   let overlay = document.getElementsByClassName('overlay');
   let gameFinishedText = document.getElementById('textBox');
   let shuffledDeck, p1TotalSoFar,dealerTotalSoFar, dealersAces, playersAces, p1Finished,dealerFinished;
@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
       overlay[0].style.zIndex = '-1';
       p1CardPosition.innerHTML = '';
       dealerCardPosition.innerHTML = '';
-      yourDisplayedTotal.textContent = 'You';
-      dealerDisplayedTotal.textContent = 'Dealer';
+      yourDisplayedTotal.textContent = '0';
+      dealerDisplayedTotal.textContent = '0';
     },1500)
     shuffledDeck = shuffle(newDeck())
     dealersAces = [];
@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
   }
   function turnDealersSecondCard(){
     dealerCardPosition.childNodes[1].classList.remove('facedown');
+    dealerDisplayedTotal.textContent = dealerTotalSoFar;
   }
 
   holdButton.addEventListener("click", ()=>{
@@ -97,14 +98,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
   let dealToDealer = (cardStatus)=>{
     let card = produceCard(dealersAces);
-    console.log("The card: ",card)
-    console.log("Dealer total: ",dealerTotalSoFar)
     if (cardStatus){
       card.card.classList.add(cardStatus)
     }
     dealerCardPosition.appendChild(card.card)
     dealerTotalSoFar += Number(card.value);
-    dealerDisplayedTotal.textContent = dealerTotalSoFar;
+
+    dealerDisplayedTotal.textContent = p1Finished ? dealerTotalSoFar : '?';
     if(dealerTotalSoFar>21){
       dealerTotalSoFar = checkLose(dealersAces,dealerTotalSoFar);
     }
