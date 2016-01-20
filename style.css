@@ -14,7 +14,12 @@
   height: 100%;
   text-align: center;
 }
+.facedown {
+  background-image: url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRTRpNTzXOioQ_sHoHFZpJB-crLmm1cVy1FaMz4fGPy_9ltDiWBQA);
+  background-size: 100%;
+  text-indent: -9999px;
 
+}
 button {
   margin: 5px;
   background-color: lightblue;
@@ -23,13 +28,20 @@ button {
 
 }
 
-#running-score {
+#yourTotal, #dealerTotal {
+  font-size: 1.2em;
+  background-color: white;
+  text-align: center;
   position: fixed;
   top: 10px;
   right: 10px;
   width: 100px;
   height: 100px;
   border:solid black 2px;
+}
+
+#dealerTotal {
+  left: 10px;
 }
 
 

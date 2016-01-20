@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
   let startButton = document.getElementsByTagName('button');
   let hitButton = document.createElement('button');
   let holdButton = document.createElement('button');
-  let handTotal = document.getElementById('running-score')
+  let yourDisplayedTotal = document.getElementById('yourTotal')
+  let dealerDisplayedTotal = document.getElementById('dealerTotal')
   let shuffledDeck = shuffle(newDeck())
   let p1TotalSoFar = 0;
   let dealerTotalSoFar = 0;
@@ -16,15 +17,18 @@ document.addEventListener("DOMContentLoaded", ()=>{
   let p1Finished = false;
   let dealerFinished = false;
 
-
   startButton[0].addEventListener("click", ()=>{
     dealToP1();
     setTimeout(()=>{
       dealToDealer();
        setTimeout(()=>{
-        dealToP1();
+        dealToP1()
+        setTimeout(()=>{
+          dealToDealer("facedown");
+
         container[0].appendChild(holdButton).innerText = "Hold"
         container[0].appendChild(hitButton).innerText = "Hit"
+      },1500)
       },1500)
     },1500)
     startButton[0].parentNode.removeChild(startButton[0])
@@ -32,34 +36,40 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
   holdButton.addEventListener("click", ()=>{
     p1Finished = true;
-    if(dealerFinished){
-      winSequence();
-    }
-    while(!dealerFinished){
-      dealersMove();
-    }
+    holdButton.disabled=true;
+    hitButton.disabled=true;
+      if(dealerFinished){
+        winSequence();
+      }else{
+        while(!dealerFinished){
+          dealersMove(); 
+        }
+      }
   })
 
   hitButton.addEventListener("click", ()=>{
     dealToP1();
-    setTimeout(()=>{
-      dealersMove(); 
-    },1500)
   })
 
   let dealToP1 = ()=>{
     let card = produceCard(playersAces);
     p1CardPosition.appendChild(card.card)
     p1TotalSoFar += card.value;
+    yourDisplayedTotal.textContent = p1TotalSoFar;
     if(p1TotalSoFar>21){
       p1TotalSoFar=checkLose(playersAces,p1TotalSoFar);
+      yourDisplayedTotal.textContent = p1TotalSoFar;
     }
   }
 
-  let dealToDealer = ()=>{
+  let dealToDealer = (cardStatus)=>{
     let card = produceCard(dealersAces);
+    if (cardStatus){
+      card.card.classList.add(cardStatus)
+    }
     dealerCardPosition.appendChild(card.card)
     dealerTotalSoFar += card.value;
+    dealerDisplayedTotal.textContent = dealerTotalSoFar;
     if(dealerTotalSoFar>21){
       dealerTotalSoFar = checkLose(dealersAces,dealerTotalSoFar);
     }
@@ -88,19 +98,21 @@ document.addEventListener("DOMContentLoaded", ()=>{
       }
       if(total>21){
         winSequence()
+      }else{
+        return total;
       }
-      return total;
   }
 
   let dealersMove = ()=>{
-    if(dealerTotalSoFar < 17){
-      dealToDealer()
-    }else{
-      dealerFinished = true;
-      if(p1Finished){
-        winSequence()
+    dealerCardPosition.childNodes[1].classList.remove('facedown');
+      if(dealerTotalSoFar < 17){
+        dealToDealer()
+      }else{
+        dealerFinished = true;
+        if(p1Finished){
+          winSequence()
+        }
       }
-    }
   }
 
   let winSequence = ()=>{
@@ -115,22 +127,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
         console.log('You lost');
         break;
       case p1TotalSoFar > dealerTotalSoFar:
-        console.log('You won')
-
-
-
+        console.log('You won');
+        break;
     }
-    // case
-    // let winOrLose = p1TotalSoFar < dealerTotalSoFar ? 'You lost! Better luck next time' : 'You won!';
-    // console.log('The other way '+ winOrLose)
 
   }
-
-  // while (!dealerFinished && !p1Finished){
-
-  // }
-
-
 });
 
 
