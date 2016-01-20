@@ -1,5 +1,3 @@
-'use strict';
-
 const shuffle = deck => {
   let backend = deck.splice(~~(deck.length/2))
   let splitDeck = backend.concat(deck)
