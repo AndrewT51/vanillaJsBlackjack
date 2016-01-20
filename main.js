@@ -25,9 +25,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
         dealToP1()
         setTimeout(()=>{
           dealToDealer("facedown");
-
-        container[0].appendChild(holdButton).innerText = "Hold"
-        container[0].appendChild(hitButton).innerText = "Hit"
+          container[0].appendChild(holdButton).innerText = "Hold"
+          container[0].appendChild(hitButton).innerText = "Hit"
       },1500)
       },1500)
     },1500)
@@ -41,9 +40,10 @@ document.addEventListener("DOMContentLoaded", ()=>{
       if(dealerFinished){
         winSequence();
       }else{
-        while(!dealerFinished){
-          dealersMove(); 
-        }
+        setTimeout(()=>{
+          continueDealersMove(); 
+          dealerCardPosition.childNodes[1].classList.remove('facedown');
+        },1000)
       }
   })
 
@@ -103,16 +103,19 @@ document.addEventListener("DOMContentLoaded", ()=>{
       }
   }
 
-  let dealersMove = ()=>{
-    dealerCardPosition.childNodes[1].classList.remove('facedown');
+  let continueDealersMove = ()=>{
+    // dealerCardPosition.childNodes[1].classList.remove('facedown');
+    setTimeout(()=>{
       if(dealerTotalSoFar < 17){
         dealToDealer()
+        continueDealersMove();
       }else{
         dealerFinished = true;
         if(p1Finished){
           winSequence()
         }
       }
+    },1500)
   }
 
   let winSequence = ()=>{
