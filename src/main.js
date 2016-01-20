@@ -124,7 +124,7 @@ let produceCard = (whichPlayer)=>{
 }
 
 let checkLose = (aces,total)=>{
-  while(aces.length){
+    if(aces.length){
       aces.pop()
       total -= 10;
     }
@@ -155,23 +155,18 @@ let winSequence = ()=>{
   turnDealersSecondCard();
   switch(true){
     case dealerTotalSoFar > 21:
-      console.log('You won, dealer went bust');
       gameOverText ='You won, dealer went bust';
       break;
     case p1TotalSoFar > 21:
-      console.log('You lost, you went bust')
       gameOverText='You lost, you went bust';
       break;
     case p1TotalSoFar <= dealerTotalSoFar:
-      console.log('You lost');
       gameOverText = 'You lost';
       break;
     case p1TotalSoFar > dealerTotalSoFar:
-      console.log('You won');
       gameOverText = 'You won';
       break;
   }
-  console.log('gameOverText', gameOverText)
   gameResult(gameOverText);
 
 }
