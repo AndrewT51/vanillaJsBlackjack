@@ -17,8 +17,10 @@ let shuffledDeck,
     playersAces, 
     p1Finished,
     dealerFinished,
-    moveX = -825,
-    moveY = 330;
+    playerX,
+    playerY,
+    dealerX,
+    dealerY;
 gameReset();
 
 function btnControl(switched){
@@ -27,8 +29,10 @@ function btnControl(switched){
 }
 
 function gameReset(){
-  moveX = -825;
-  moveY = 330;
+  playerX = -875;
+  playerY = 329;
+  dealerX = -875,
+  dealerY = 73;
   setTimeout(()=>{
     overlay[0].style.zIndex = '-1';
     p1CardPosition.innerHTML = '';
@@ -93,7 +97,7 @@ hitButton.addEventListener("click", ()=>{
 })
 
 let dealToP1 = ()=>{
-  animateDeal();
+  animateDeal(false);
   let card = produceCard(playersAces);
   p1CardPosition.appendChild(card.card)
   p1TotalSoFar += Number(card.value);
@@ -105,6 +109,7 @@ let dealToP1 = ()=>{
 }
 
 let dealToDealer = (cardStatus)=>{
+  animateDeal(true);
   let card = produceCard(dealersAces);
   if (cardStatus){
     card.card.classList.add(cardStatus)

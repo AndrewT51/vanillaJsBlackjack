@@ -130,6 +130,7 @@ button {
 
 }
 .card {
+  visibility: hidden;
   margin-left: -14%;
   display: inline-block;
   border:black solid 1px;
@@ -141,6 +142,7 @@ button {
 }
 
 .animCard {
+  visibility: visible;
   margin:0;
   position:absolute;
   z-index: 7;
@@ -154,6 +156,7 @@ button {
 }
 
 .cardInBox {
+  visibility: visible;
   margin:0;
   position: absolute;
   left:13px;
