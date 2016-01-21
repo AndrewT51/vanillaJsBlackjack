@@ -39,7 +39,7 @@ function gameReset(){
     dealerCardPosition.innerHTML = '';
     yourDisplayedTotal.textContent = '0';
     dealerDisplayedTotal.textContent = '0';
-  },firstGame?0:1500)
+  },firstGame?0:2000)
   shuffledDeck = shuffle(newDeck())
   dealersAces = [];
   playersAces = [];
@@ -65,15 +65,16 @@ function begin(){
      setTimeout(()=>{
       dealToP1()
       setTimeout(()=>{
-        dealToDealer("facedown");
         container[0].appendChild(holdButton).innerText = "Stick"
         container[0].appendChild(hitButton).innerText = "Hit"
+        dealToDealer("facedown");
     },1500)
     },1500)
   },1500)
   clnStartButton = startButton.cloneNode(true);
   startButton.parentNode.removeChild(startButton)
 }
+
 function turnDealersSecondCard(){
   dealerCardPosition.childNodes[1].classList.remove('facedown');
   dealerDisplayedTotal.textContent = dealerTotalSoFar;
@@ -83,7 +84,8 @@ holdButton.addEventListener("click", ()=>{
   p1Finished = true;
   btnControl(true);
     if(dealerFinished){
-      winSequence();
+      // winSequence();
+      finalCheck();
     }else{
       setTimeout(()=>{
         continueDealersMove(); 
@@ -101,11 +103,6 @@ let dealToP1 = ()=>{
   let card = produceCard(playersAces);
   p1CardPosition.appendChild(card.card)
   p1TotalSoFar += Number(card.value);
-  yourDisplayedTotal.textContent = p1TotalSoFar;
-  if(p1TotalSoFar>21){
-    p1TotalSoFar=checkLose(playersAces,p1TotalSoFar);
-    yourDisplayedTotal.textContent = p1TotalSoFar;
-  }
 }
 
 let dealToDealer = (cardStatus)=>{
@@ -116,12 +113,6 @@ let dealToDealer = (cardStatus)=>{
   }
   dealerCardPosition.appendChild(card.card)
   dealerTotalSoFar += Number(card.value);
-
-  dealerDisplayedTotal.textContent = p1Finished ? dealerTotalSoFar : '?';
-  if(dealerTotalSoFar>21){
-    dealerTotalSoFar = checkLose(dealersAces,dealerTotalSoFar);
-    dealerDisplayedTotal.textContent = p1TotalSoFar;
-  }
 }
 
 let produceCard = (whichPlayer)=>{
@@ -141,16 +132,16 @@ let produceCard = (whichPlayer)=>{
 }
 
 let checkLose = (aces,total)=>{
+  console.log(aces)
     if(aces.length){
       aces.pop()
       total -= 10;
-
     }
     if(total>21){
       winSequence()
-    }else{
-      return total;
     }
+    return total;
+    
 }
 
 let continueDealersMove = ()=>{
@@ -168,32 +159,38 @@ let continueDealersMove = ()=>{
 }
 
 let winSequence = ()=>{
-  var gameOverText;
-  btnControl(true);
-  turnDealersSecondCard();
-  switch(true){
-    case dealerTotalSoFar > 21:
-      gameOverText ='You won, dealer went bust';
-      break;
-    case p1TotalSoFar > 21:
-      gameOverText='You lost, you went bust';
-      break;
-    case p1TotalSoFar <= dealerTotalSoFar:
-      gameOverText = 'You lost';
-      break;
-    case p1TotalSoFar > dealerTotalSoFar:
-      gameOverText = 'You won';
-      break;
-  }
-  gameResult(gameOverText);
-
+    var gameOverText;
+    btnControl(true);
+    turnDealersSecondCard();
+    switch(true){
+      case dealerTotalSoFar > 21:
+        gameOverText ='You won, dealer went bust.';
+        break;
+      case p1TotalSoFar > 21:
+        gameOverText='You lost, you went bust.';
+        break;
+      case p1TotalSoFar < dealerTotalSoFar:
+        gameOverText = 'You lost.';
+        break;
+      case p1TotalSoFar > dealerTotalSoFar:
+        gameOverText = 'You won.';
+        break;
+      case p1TotalSoFar === dealerTotalSoFar:
+        gameOverText = `You both had ${dealerTotalSoFar}. No winner.`
+    }
+    // dealerDisplayedTotal.textContent = dealerTotalSoFar;
+    // yourDisplayedTotal.textContent = p1TotalSoFar;
+    console.log(p1TotalSoFar)
+    gameResult(gameOverText);
 }
 
 let gameResult = (result)=>{
-  overlay[0].style.zIndex = '1';
-  gameFinishedText.textContent = result;
-  firstGame = false;
-  gameReset();
+  setTimeout(()=>{
+    overlay[0].style.zIndex = '1';
+    gameFinishedText.textContent = result;
+    firstGame = false;
+    gameReset();
+  },2000)
 
 }
 

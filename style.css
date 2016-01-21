@@ -2,6 +2,7 @@ html,body {
     margin:0;
     padding:0;
     height:100%;
+    background-color: lightgrey;
 }
 
 .cardStart {
@@ -17,7 +18,8 @@ html,body {
 
 
 #table {
-  margin: 50px auto;
+  margin: 10px auto;
+  margin-bottom: 0;
   width: 800px;
   height: 400px;
   background-color: green;
@@ -94,7 +96,7 @@ button {
   background-color: white;
   text-align: center;
   position: fixed;
-  top: 10px;
+  top: 350px;
   right: 10px;
   width: 100px;
   height: 100px;
@@ -132,6 +134,8 @@ button {
 .card {
   visibility: hidden;
   margin-left: -14%;
+  margin-top: -40%;
+  margin-bottom:-40%;
   display: inline-block;
   border:black solid 1px;
   width: 55px;

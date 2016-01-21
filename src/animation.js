@@ -7,7 +7,6 @@ function animateDeal(dealer){
   
   function activate(){
     deal(coordsX,coordsY) 
-    deal()
   }
 
   function deal(moveX,moveY){
@@ -27,10 +26,40 @@ function animateDeal(dealer){
           }else{
             p1CardPosition.lastChild.style.visibility = "visible"; 
           }
-          cardToDeal.style.display = "none";
+          holder.removeChild(cardToDeal)
+
+          finalCheck()
+          // yourDisplayedTotal.textContent = p1TotalSoFar;
+          // dealerDisplayedTotal.textContent = p1Finished ? dealerTotalSoFar : '?';
+          // if(dealerTotalSoFar>21){
+          //   // dealerDisplayedTotal.textContent = p1TotalSoFar;
+          //   dealerTotalSoFar = checkLose(dealersAces,dealerTotalSoFar);
+          //   dealerDisplayedTotal.textContent = dealerTotalSoFar;
+          // }
+          // if(p1TotalSoFar>21){
+          //   // yourDisplayedTotal.textContent = p1TotalSoFar;
+          //   p1TotalSoFar=checkLose(playersAces,p1TotalSoFar);
+          //   yourDisplayedTotal.textContent = p1TotalSoFar;
+          // }
         },1300)  
       },700)
       cardToDeal.style.webkitTransform = "rotate(90deg) translateX(80%)"
     },300)
   }
+}
+
+function finalCheck(){
+   yourDisplayedTotal.textContent = p1TotalSoFar;
+          dealerDisplayedTotal.textContent = p1Finished ? dealerTotalSoFar : '?';
+          if(dealerTotalSoFar>21){
+            // dealerDisplayedTotal.textContent = p1TotalSoFar;
+            dealerTotalSoFar = checkLose(dealersAces,dealerTotalSoFar);
+            dealerDisplayedTotal.textContent = dealerTotalSoFar;
+          }
+          if(p1TotalSoFar>21){
+            // yourDisplayedTotal.textContent = p1TotalSoFar;
+            p1TotalSoFar=checkLose(playersAces,p1TotalSoFar);
+            yourDisplayedTotal.textContent = p1TotalSoFar;
+          }
+
 }
