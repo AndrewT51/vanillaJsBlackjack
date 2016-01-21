@@ -10,7 +10,15 @@ let yourDisplayedTotal = document.getElementById('yourTotalVal')
 let dealerDisplayedTotal = document.getElementById('dealerTotalVal')
 let overlay = document.getElementsByClassName('overlay');
 let gameFinishedText = document.getElementById('textBox');
-let shuffledDeck, p1TotalSoFar,dealerTotalSoFar, dealersAces, playersAces, p1Finished,dealerFinished;
+let shuffledDeck, 
+    p1TotalSoFar,
+    dealerTotalSoFar, 
+    dealersAces, 
+    playersAces, 
+    p1Finished,
+    dealerFinished,
+    moveX = -825,
+    moveY = 330;
 gameReset();
 
 function btnControl(switched){
@@ -19,6 +27,8 @@ function btnControl(switched){
 }
 
 function gameReset(){
+  moveX = -825;
+  moveY = 330;
   setTimeout(()=>{
     overlay[0].style.zIndex = '-1';
     p1CardPosition.innerHTML = '';
@@ -83,6 +93,7 @@ hitButton.addEventListener("click", ()=>{
 })
 
 let dealToP1 = ()=>{
+  animateDeal();
   let card = produceCard(playersAces);
   p1CardPosition.appendChild(card.card)
   p1TotalSoFar += Number(card.value);
@@ -104,6 +115,7 @@ let dealToDealer = (cardStatus)=>{
   dealerDisplayedTotal.textContent = p1Finished ? dealerTotalSoFar : '?';
   if(dealerTotalSoFar>21){
     dealerTotalSoFar = checkLose(dealersAces,dealerTotalSoFar);
+    dealerDisplayedTotal.textContent = p1TotalSoFar;
   }
 }
 
@@ -127,6 +139,7 @@ let checkLose = (aces,total)=>{
     if(aces.length){
       aces.pop()
       total -= 10;
+
     }
     if(total>21){
       winSequence()

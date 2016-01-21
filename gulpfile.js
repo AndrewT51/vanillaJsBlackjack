@@ -9,7 +9,7 @@ gulp.task('default',['babelify','minify'],() => {
 
 
 gulp.task('babelify',()=> {
-  return gulp.src(['src/firstLine','src/newDeck.js','src/shuffle.js','src/main.js','src/lastLine'])
+  return gulp.src(['src/firstLine','src/animation.js','src/newDeck.js','src/shuffle.js','src/main.js','src/lastLine'])
     .pipe(concat('main.js'))
     .pipe(babel({
       presets: ['es2015']
