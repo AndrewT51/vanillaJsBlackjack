@@ -31,7 +31,7 @@ function btnControl(switched){
 
 function gameReset(){
   setTimeout(()=>{
-    overlay[0].style.zIndex = '-1';
+    overlay[0].style.visibility= 'hidden';
     p1CardPosition.innerHTML = '';
     dealerCardPosition.innerHTML = '';
     yourDisplayedTotal.textContent = '0';
@@ -198,7 +198,7 @@ let winSequence = ()=>{
 }
 
 let gameResult = (result)=>{
-  overlay[0].style.zIndex = '1';
+  overlay[0].style.visibility = 'visible';
   gameFinishedText.textContent = result;
   firstGame = false;
   gameReset();
