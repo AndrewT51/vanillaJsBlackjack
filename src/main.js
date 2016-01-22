@@ -94,6 +94,7 @@ holdButton.addEventListener("click", ()=>{
 })
 
 hitButton.addEventListener("click", ()=>{
+  btnControl(true)
   dealToP1();
 })
 
@@ -167,6 +168,7 @@ let continueDealersMove = ()=>{
         })
       }
     }
+    
   },1500)
 }
 

@@ -28,6 +28,7 @@ function animateDeal(dealer){
           }else{
             p1CardPosition.lastChild.style.visibility = "visible"; 
             yourDisplayedTotal.textContent= p1TotalSoFar
+            if(p1TotalSoFar<=21) btnControl(false)
           }
           holder.removeChild(cardToDeal)
         },1000)  
