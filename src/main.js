@@ -29,10 +29,10 @@ function btnControl(switched){
 }
 
 function gameReset(){
-  playerX = -875;
-  playerY = 329;
-  dealerX = -875,
-  dealerY = 73;
+  // playerX = -875;
+  // playerY = 329;
+  // dealerX = -875,
+  // dealerY = 73;
   setTimeout(()=>{
     overlay[0].style.zIndex = '-1';
     p1CardPosition.innerHTML = '';
@@ -41,10 +41,10 @@ function gameReset(){
     dealerDisplayedTotal.textContent = '0';
   },firstGame?0:1500)
   shuffledDeck = shuffle(newDeck())
-  dealersAces = [];
-  playersAces = [];
-  p1Finished = false;
-  dealerFinished = false;
+  // dealersAces = [];
+  // playersAces = [];
+  // p1Finished = false;
+  // dealerFinished = false;
   btnControl(false);
   if(!firstGame){
     startButton = clnStartButton;
@@ -57,6 +57,14 @@ function gameReset(){
 }
 
 function begin(){
+  playerX = -875;
+  playerY = 329;
+  dealerX = -875,
+  dealerY = 73;
+  dealersAces = [];
+  playersAces = [];
+  p1Finished = false;
+  dealerFinished = false;
   p1TotalSoFar = 0;
   dealerTotalSoFar = 0;
   dealToP1();

@@ -6,11 +6,11 @@ function animateDeal(dealer){
   activate()
   
   function activate(){
-    deal(coordsX,coordsY) 
+    // deal(coordsX,coordsY) 
     deal()
   }
 
-  function deal(moveX,moveY){
+  function deal(){
     console.log(dealer)
     var cardToDeal = document.getElementsByClassName('animCard')[0]
     var temp = document.createElement('div');
@@ -27,7 +27,8 @@ function animateDeal(dealer){
           }else{
             p1CardPosition.lastChild.style.visibility = "visible"; 
           }
-          cardToDeal.style.display = "none";
+          // cardToDeal.style.display = "none";
+          cardStart.removeChild(cardStart.firstChild)
         },1300)  
       },700)
       cardToDeal.style.webkitTransform = "rotate(90deg) translateX(80%)"
