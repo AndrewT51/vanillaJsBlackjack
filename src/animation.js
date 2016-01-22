@@ -24,10 +24,10 @@ function animateDeal(dealer){
         setTimeout(function(){
           if(dealer){
             dealerCardPosition.lastChild.style.visibility = "visible";
-            dealerDisplayedTotal.innerText = initialTwoCards ? '?' : dealerTotalSoFar;
+            dealerDisplayedTotal.textContent = initialTwoCards ? '?' : dealerTotalSoFar;
           }else{
             p1CardPosition.lastChild.style.visibility = "visible"; 
-            yourDisplayedTotal.innerText= p1TotalSoFar
+            yourDisplayedTotal.textContent= p1TotalSoFar
           }
           holder.removeChild(cardToDeal)
         },1000)  

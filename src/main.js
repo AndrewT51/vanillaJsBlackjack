@@ -68,8 +68,8 @@ function begin(){
       dealToP1()
       setTimeout(()=>{
         dealToDealer("facedown");
-        container[0].appendChild(holdButton).innerText = "Stick"
-        container[0].appendChild(hitButton).innerText = "Hit"
+        container[0].appendChild(holdButton).textContent = "Stick"
+        container[0].appendChild(hitButton).textContent = "Hit"
     },1500)
     },1500)
   },1500)
@@ -129,7 +129,7 @@ let produceCard = (whichPlayer)=>{
   card.classList.add("card");
   let currentCard = shuffledDeck.shift();
   let cardFace = currentCard.match(/\[(.+)\]/)[1];
-  card.innerText = cardFace;
+  card.textContent = cardFace;
   if(cardFace.indexOf('\u2660') + cardFace.indexOf('\u2663') ===-2){
     card.classList.add("red")
   }
@@ -171,8 +171,8 @@ let continueDealersMove = ()=>{
 }
 
 let winSequence = ()=>{
-  dealerDisplayedTotal.innerText = dealerTotalSoFar;
-  yourDisplayedTotal.innerText = p1TotalSoFar;
+  dealerDisplayedTotal.textContent = dealerTotalSoFar;
+  yourDisplayedTotal.textContent = p1TotalSoFar;
   var gameOverText;
   btnControl(true);
   switch(true){
