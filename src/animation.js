@@ -17,6 +17,10 @@ function animateDeal(dealer){
     setTimeout(function(){
       setTimeout(function(){
         cardToDeal.style.webkitTransform = "rotate(-45deg) translateX("+coordsX+"%) translateY("+coordsY+"%)"
+        cardToDeal.style.mozTransform = "rotate(-45deg) translateX("+coordsX+"%) translateY("+coordsY+"%)"
+        cardToDeal.style.oTransform = "rotate(-45deg) translateX("+coordsX+"%) translateY("+coordsY+"%)"
+        cardToDeal.style.msTransform = "rotate(-45deg) translateX("+coordsX+"%) translateY("+coordsY+"%)"
+        cardToDeal.style.transform = "rotate(-45deg) translateX("+coordsX+"%) translateY("+coordsY+"%)"
         setTimeout(function(){
           if(dealer){
             dealerCardPosition.lastChild.style.visibility = "visible";
@@ -29,6 +33,10 @@ function animateDeal(dealer){
         },1000)  
       },700)
       cardToDeal.style.webkitTransform = "rotate(90deg) translateX(80%)"
+      cardToDeal.style.mozTransform = "rotate(90deg) translateX(80%)"
+      cardToDeal.style.oTransform = "rotate(90deg) translateX(80%)"
+      cardToDeal.style.msTransform = "rotate(90deg) translateX(80%)"
+      cardToDeal.style.transform = "rotate(90deg) translateX(80%)"
     },300)
   }
 }
