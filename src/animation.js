@@ -3,12 +3,8 @@ function animateDeal(dealer){
   var button = document.getElementsByTagName('button')[0];
   let coordsX = dealer ? dealerX+=51 : playerX+=51;
   let coordsY = dealer ? dealerY : playerY;
-  activate()
+  deal()
   
-  function activate(){
-    // deal(coordsX,coordsY) 
-    deal()
-  }
 
   function deal(){
     console.log(dealer)
@@ -24,12 +20,13 @@ function animateDeal(dealer){
         setTimeout(function(){
           if(dealer){
             dealerCardPosition.lastChild.style.visibility = "visible";
+            dealerDisplayedTotal.innerText = initialTwoCards ? '?' : dealerTotalSoFar;
           }else{
             p1CardPosition.lastChild.style.visibility = "visible"; 
+            yourDisplayedTotal.innerText= p1TotalSoFar
           }
-          // cardToDeal.style.display = "none";
-          cardStart.removeChild(cardStart.firstChild)
-        },1300)  
+          holder.removeChild(cardToDeal)
+        },1000)  
       },700)
       cardToDeal.style.webkitTransform = "rotate(90deg) translateX(80%)"
     },300)

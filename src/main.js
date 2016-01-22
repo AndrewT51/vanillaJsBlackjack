@@ -20,7 +20,8 @@ let shuffledDeck,
     playerX,
     playerY,
     dealerX,
-    dealerY;
+    dealerY,
+    initialTwoCards;
 gameReset();
 
 function btnControl(switched){
@@ -29,10 +30,6 @@ function btnControl(switched){
 }
 
 function gameReset(){
-  // playerX = -875;
-  // playerY = 329;
-  // dealerX = -875,
-  // dealerY = 73;
   setTimeout(()=>{
     overlay[0].style.zIndex = '-1';
     p1CardPosition.innerHTML = '';
@@ -41,10 +38,6 @@ function gameReset(){
     dealerDisplayedTotal.textContent = '0';
   },firstGame?0:1500)
   shuffledDeck = shuffle(newDeck())
-  // dealersAces = [];
-  // playersAces = [];
-  // p1Finished = false;
-  // dealerFinished = false;
   btnControl(false);
   if(!firstGame){
     startButton = clnStartButton;
@@ -57,6 +50,7 @@ function gameReset(){
 }
 
 function begin(){
+  initialTwoCards = true;
   playerX = -875;
   playerY = 329;
   dealerX = -875,
@@ -84,20 +78,19 @@ function begin(){
 }
 function turnDealersSecondCard(){
   dealerCardPosition.childNodes[1].classList.remove('facedown');
+  initialTwoCards =false;
   dealerDisplayedTotal.textContent = dealerTotalSoFar;
 }
 
 holdButton.addEventListener("click", ()=>{
+  console.log('Activated')
   p1Finished = true;
   btnControl(true);
-    if(dealerFinished){
-      winSequence();
-    }else{
-      setTimeout(()=>{
-        continueDealersMove(); 
-        turnDealersSecondCard();
-      },1000)
-    }
+  setTimeout(()=>{
+    console.log('hi')
+    turnDealersSecondCard();
+    continueDealersMove(); 
+  },1000)
 })
 
 hitButton.addEventListener("click", ()=>{
@@ -109,10 +102,8 @@ let dealToP1 = ()=>{
   let card = produceCard(playersAces);
   p1CardPosition.appendChild(card.card)
   p1TotalSoFar += Number(card.value);
-  yourDisplayedTotal.textContent = p1TotalSoFar;
   if(p1TotalSoFar>21){
     p1TotalSoFar=checkLose(playersAces,p1TotalSoFar);
-    yourDisplayedTotal.textContent = p1TotalSoFar;
   }
 }
 
@@ -122,14 +113,15 @@ let dealToDealer = (cardStatus)=>{
   if (cardStatus){
     card.card.classList.add(cardStatus)
   }
-  dealerCardPosition.appendChild(card.card)
-  dealerTotalSoFar += Number(card.value);
 
-  dealerDisplayedTotal.textContent = p1Finished ? dealerTotalSoFar : '?';
-  if(dealerTotalSoFar>21){
-    dealerTotalSoFar = checkLose(dealersAces,dealerTotalSoFar);
-    dealerDisplayedTotal.textContent = p1TotalSoFar;
-  }
+    setTimeout(()=>{
+      dealerCardPosition.appendChild(card.card);
+    },2000)
+ 
+    dealerTotalSoFar += Number(card.value);
+    if(dealerTotalSoFar>21){
+      dealerTotalSoFar = checkLose(dealersAces,dealerTotalSoFar);
+    }
 }
 
 let produceCard = (whichPlayer)=>{
@@ -152,13 +144,14 @@ let checkLose = (aces,total)=>{
     if(aces.length){
       aces.pop()
       total -= 10;
-
     }
     if(total>21){
-      winSequence()
-    }else{
-      return total;
+      setTimeout(()=>{
+        winSequence()    
+      },3000)
     }
+    return total;
+    
 }
 
 let continueDealersMove = ()=>{
@@ -166,19 +159,22 @@ let continueDealersMove = ()=>{
     if(dealerTotalSoFar < 17){
       dealToDealer()
       continueDealersMove();
-    }else{
+    }else if(dealerTotalSoFar <=21){
       dealerFinished = true;
       if(p1Finished){
-        winSequence()
+        setTimeout(()=>{
+          winSequence()
+        })
       }
     }
   },1500)
 }
 
 let winSequence = ()=>{
+  dealerDisplayedTotal.innerText = dealerTotalSoFar;
+  yourDisplayedTotal.innerText = p1TotalSoFar;
   var gameOverText;
   btnControl(true);
-  turnDealersSecondCard();
   switch(true){
     case dealerTotalSoFar > 21:
       gameOverText ='You won, dealer went bust';
@@ -186,15 +182,19 @@ let winSequence = ()=>{
     case p1TotalSoFar > 21:
       gameOverText='You lost, you went bust';
       break;
-    case p1TotalSoFar <= dealerTotalSoFar:
+    case p1TotalSoFar < dealerTotalSoFar:
       gameOverText = 'You lost';
       break;
     case p1TotalSoFar > dealerTotalSoFar:
       gameOverText = 'You won';
       break;
+    case p1TotalSoFar === dealerTotalSoFar:
+      gameOverText = 'That was a draw'
   }
-  gameResult(gameOverText);
-
+  setTimeout(()=>{
+      gameResult(gameOverText);
+      
+  },1000)
 }
 
 let gameResult = (result)=>{
