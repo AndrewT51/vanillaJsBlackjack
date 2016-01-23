@@ -3,7 +3,6 @@ let p1CardPosition = document.getElementById('p1Position');
 let dealerCardPosition = document.getElementById('dealerPosition');
 let container = document.getElementsByClassName('container');
 let startButton = document.getElementsByTagName('button')[0];
-let clnStartButton;
 let hitButton = document.createElement('button');
 let holdButton = document.createElement('button');
 let yourDisplayedTotal = document.getElementById('yourTotalVal')
@@ -21,7 +20,8 @@ let shuffledDeck,
     playerY,
     dealerX,
     dealerY,
-    initialTwoCards;
+    initialTwoCards,
+    clnStartButton;
 gameReset();
 
 function btnControl(switched){
@@ -51,16 +51,13 @@ function gameReset(){
 
 function begin(){
   initialTwoCards = true;
-  playerX = -875;
+  playerX = dealerX = -875;
   playerY = 329;
-  dealerX = -875,
   dealerY = 73;
   dealersAces = [];
   playersAces = [];
-  p1Finished = false;
-  dealerFinished = false;
-  p1TotalSoFar = 0;
-  dealerTotalSoFar = 0;
+  p1Finished = dealerFinished = false;
+  p1TotalSoFar = dealerTotalSoFar = 0;
   dealToP1();
   setTimeout(()=>{
     dealToDealer();
