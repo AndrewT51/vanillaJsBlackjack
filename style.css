@@ -2,6 +2,7 @@ html,body {
     margin:0;
     padding:0;
     height:100%;
+    background-color: #C7D0C6;
 }
 
 .cardStart {
@@ -10,7 +11,7 @@ html,body {
   left:740px;
   width:82px;
   height: 100px;
-  background-color: black;
+  background-color: #1B1815;
   transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
@@ -25,8 +26,8 @@ html,body {
   width: 800px;
   height: 400px;
   background-color: green;
-  border: brown solid 10px;
-  border-bottom: brown solid 20px;
+  border: #720909 solid 10px;
+  border-bottom: #720909 solid 20px;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   overflow: hidden;
@@ -38,15 +39,16 @@ html,body {
   top:-300px;
   left: 220px;
   font-size: 3em;
-  color: #e0aa4c;
+  color: #438C43;
+  /*color:#e0aa4c;*/
   z-index:0;
   transform:scale(1.7,1);
   -moz-transform:scale(1.7,1);
   -webkit-transform:scale(1.7,1);
   -o-transform:scale(1.7,1);
   -ms-transform:scale(1.7,1);
-  border-top: 1px solid #e0aa4c;
-  border-bottom: 1px solid #e0aa4c;
+  border-top: 1px solid #438C43;
+  border-bottom: 1px solid #438C43;
 
 
 }
@@ -87,7 +89,7 @@ html,body {
 .litteBox{
 
   position:absolute;
-  background-color: black;
+  background-color: #1B1815;
   height: 55px;
   width:35px;
   top: 30px;
@@ -111,11 +113,14 @@ html,body {
 
 button {
   margin: 5px;
-  background-color: lightblue;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right:20px;
+  color:#1B1815;
+  background-color: #DEDDDC;
   height: 40px;
   font-size: 1.5em;
   border-radius: 15px
-
 }
 
 button:focus {
@@ -124,18 +129,23 @@ button:focus {
 
 #yourTotal, #dealerTotal {
   font-size: 1.2em;
-  background-color: white;
+  background-color: #DEDDDC;
   text-align: center;
   position: fixed;
   top: 350px;
   right: 10px;
   width: 100px;
   height: 100px;
-  border:solid black 2px;
+  border:solid #1B1815 2px;
   z-index:15;
 }
 
+#dealerTotalVal, #yourTotalVal {
+  font-size: 1.5em;
+}
+
 #yourTotal>h5, #dealerTotal>h5 {
+  color:#1B1815;
   margin-top: 1px;
   margin-bottom: 3px;
 }
@@ -181,7 +191,7 @@ button:focus {
   border:black solid 1px;
   width: 55px;
   height: 80px;
-  background-color: white;
+  background-color: #ECECEC;
   border-radius: 5px;
 
 }
@@ -223,6 +233,9 @@ button:focus {
 .red {
   color: red;
 }
+
+
+
 
 
 
