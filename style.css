@@ -137,6 +137,12 @@ button:focus {
 
 #yourTotal>h5, #dealerTotal>h5 {
   margin-top: 1px;
+  margin-bottom: 3px;
+}
+
+#yourTotal>span, #dealerTotal>span{
+  color: orange;
+  visibility: hidden;
 }
 
 #dealerTotal {

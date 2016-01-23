@@ -8,7 +8,6 @@ function animateDeal(dealer){
   
 
   function deal(){
-    console.log(dealer)
     var cardToDeal = document.getElementsByClassName('animCard')[0]
     var temp = document.createElement('div');
     temp.classList.add('card');
@@ -21,10 +20,12 @@ function animateDeal(dealer){
         setTimeout(function(){
           if(dealer){
             dealerCardPosition.lastChild.style.visibility = "visible";
+            dealerSoft.style.visibility = dealerShowSoft ? (initialTwoCards?"hidden": "visible") : "hidden";
             dealerDisplayedTotal.textContent = initialTwoCards ? '?' : dealerTotalSoFar;
           }else{
-            p1CardPosition.lastChild.style.visibility = "visible"; 
-            yourDisplayedTotal.textContent= p1TotalSoFar
+            p1CardPosition.lastChild.style.visibility = "visible";
+            playerSoft.style.visibility = playerShowSoft ? "visible" : "hidden";
+            yourDisplayedTotal.textContent= p1TotalSoFar;
             if(p1TotalSoFar<=21) btnControl(false)
           }
           holder.removeChild(cardToDeal)

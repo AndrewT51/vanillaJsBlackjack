@@ -9,19 +9,24 @@ let yourDisplayedTotal = document.getElementById('yourTotalVal')
 let dealerDisplayedTotal = document.getElementById('dealerTotalVal')
 let overlay = document.getElementsByClassName('overlay');
 let gameFinishedText = document.getElementById('textBox');
+let dealerSoft =document.getElementById('dealerSoft');
+let playerSoft =document.getElementById('playerSoft');
+
 let shuffledDeck, 
-    p1TotalSoFar,
-    dealerTotalSoFar, 
-    dealersAces, 
-    playersAces, 
-    p1Finished,
-    dealerFinished,
-    playerX,
-    playerY,
-    dealerX,
-    dealerY,
-    initialTwoCards,
-    clnStartButton;
+p1TotalSoFar,
+dealerTotalSoFar, 
+dealersAces, 
+playersAces, 
+p1Finished,
+dealerFinished,
+playerX,
+playerY,
+dealerX,
+dealerY,
+dealerShowSoft,
+playerShowSoft,
+initialTwoCards,
+clnStartButton;
 gameReset();
 
 function btnControl(switched){
@@ -31,6 +36,9 @@ function btnControl(switched){
 
 function gameReset(){
   setTimeout(()=>{
+    playerShowSoft = dealerShowSoft = false;
+    playerSoft.style.visibility = "hidden";
+    dealerSoft.style.visibility = "hidden";
     overlay[0].style.visibility= 'hidden';
     p1CardPosition.innerHTML = '';
     dealerCardPosition.innerHTML = '';
@@ -50,6 +58,7 @@ function gameReset(){
 }
 
 function begin(){
+  
   initialTwoCards = true;
   playerX = dealerX = -875;
   playerY = 329;
@@ -61,13 +70,16 @@ function begin(){
   dealToP1();
   setTimeout(()=>{
     dealToDealer();
-     setTimeout(()=>{
+    setTimeout(()=>{
       dealToP1()
       setTimeout(()=>{
         dealToDealer("facedown");
-        container[0].appendChild(holdButton).textContent = "Stick"
-        container[0].appendChild(hitButton).textContent = "Hit"
-    },1500)
+        setTimeout(()=>{
+          container[0].appendChild(holdButton).textContent = "Stick"
+          container[0].appendChild(hitButton).textContent = "Hit"
+          
+        },2000)
+      },1500)
     },1500)
   },1500)
   clnStartButton = startButton.cloneNode(true);
@@ -76,18 +88,17 @@ function begin(){
 function turnDealersSecondCard(){
   dealerCardPosition.childNodes[1].classList.remove('facedown');
   initialTwoCards =false;
+  dealerSoft.style.visibility = dealerShowSoft ? "visible": "hidden";
   dealerDisplayedTotal.textContent = dealerTotalSoFar;
 }
 
 holdButton.addEventListener("click", ()=>{
-  console.log('Activated')
   p1Finished = true;
   btnControl(true);
   setTimeout(()=>{
-    console.log('hi')
     turnDealersSecondCard();
-    continueDealersMove(); 
-  },1000)
+    continueDealersMove();  
+  },800)
 })
 
 hitButton.addEventListener("click", ()=>{
@@ -111,15 +122,16 @@ let dealToDealer = (cardStatus)=>{
   if (cardStatus){
     card.card.classList.add(cardStatus)
   }
-
-    setTimeout(()=>{
-      dealerCardPosition.appendChild(card.card);
-    },2000)
- 
+  setTimeout(()=>{
+    dealerCardPosition.appendChild(card.card);
+  },2000)
+  setTimeout(()=>{
     dealerTotalSoFar += Number(card.value);
     if(dealerTotalSoFar>21){
       dealerTotalSoFar = checkLose(dealersAces,dealerTotalSoFar);
     }
+
+  },1500)
 }
 
 let produceCard = (whichPlayer)=>{
@@ -134,22 +146,29 @@ let produceCard = (whichPlayer)=>{
   let value = Number(currentCard.match(/\](\d+)/)[1]);
   if(cardFace.indexOf('A')===0){
     whichPlayer.push('A')
+    checkHardOrSoft()
   }
   return {card,value};
 }
 
+let checkHardOrSoft = ()=> {
+  dealerShowSoft = dealersAces.length ? true : false;
+  playerShowSoft = playersAces.length ? true : false;
+}
+
 let checkLose = (aces,total)=>{
-    if(aces.length){
-      aces.pop()
-      total -= 10;
-    }
-    if(total>21){
-      setTimeout(()=>{
-        winSequence()    
-      },3000)
-    }
-    return total;
-    
+  if(aces.length){
+    aces.pop()
+    total -= 10;
+  }
+  checkHardOrSoft()
+  if(total>21){
+    setTimeout(()=>{
+      winSequence()    
+    },3000)
+  }
+  return total;
+
 }
 
 let continueDealersMove = ()=>{
@@ -170,29 +189,27 @@ let continueDealersMove = ()=>{
 }
 
 let winSequence = ()=>{
-  dealerDisplayedTotal.textContent = dealerTotalSoFar;
-  yourDisplayedTotal.textContent = p1TotalSoFar;
   var gameOverText;
   btnControl(true);
   switch(true){
     case dealerTotalSoFar > 21:
       gameOverText ='You won, dealer went bust';
-      break;
+    break;
     case p1TotalSoFar > 21:
       gameOverText='You lost, you went bust';
-      break;
+    break;
     case p1TotalSoFar < dealerTotalSoFar:
       gameOverText = 'You lost';
-      break;
+    break;
     case p1TotalSoFar > dealerTotalSoFar:
       gameOverText = 'You won';
-      break;
+    break;
     case p1TotalSoFar === dealerTotalSoFar:
       gameOverText = 'That was a draw'
   }
   setTimeout(()=>{
-      gameResult(gameOverText);
-      
+    gameResult(gameOverText);
+
   },1000)
 }
 
