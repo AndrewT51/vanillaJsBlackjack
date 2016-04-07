@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-CACHE
+CACHE:
 index.html
 style.css
 dist/main.min.js
