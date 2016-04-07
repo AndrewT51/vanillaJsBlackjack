@@ -3,5 +3,5 @@ CACHE MANIFEST
 CACHE:
 index.html
 style.css
-dist/main.min.js
+dist/main.js
 dist/cardBack.png
