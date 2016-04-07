@@ -12,6 +12,30 @@ let gameFinishedText = document.getElementById('textBox');
 let dealerSoft =document.getElementById('dealerSoft');
 let playerSoft =document.getElementById('playerSoft');
 
+var table = document.getElementById("table");
+// var curvedText = curveText("B\u00A0L\u00A0A\u00A0C\u00A0K\u00A0J\u00A0A\u00A0C\u00A0K","under",1100,4);
+// curvedText.style.position = "relative"
+// curvedText.style.zIndex = "0"
+// curvedText.style.color = "#438C43;"
+// curvedText.style.top = "-902px"
+// curvedText.style.left = "-20px"
+var curvedText = curveText({
+  text: "B L A C K J A C K",
+  textColor:"#438C43",
+  fontSize: 5,
+  circleSize: 670,
+  curvature: 0.12,
+  lineOnTop: 1,
+  lineOnBottom: 1,
+  lineColor:"#438C43",
+  under: true
+});
+
+table.insertBefore(curvedText, table.firstChild);
+
+
+
+
 let shuffledDeck, 
 p1TotalSoFar,
 dealerTotalSoFar, 
@@ -157,6 +181,10 @@ let checkHardOrSoft = ()=> {
 }
 
 let checkLose = (aces,total)=>{
+  if(aces.length){
+    aces.pop()
+    total -= 10;
+  }
   if(aces.length){
     aces.pop()
     total -= 10;

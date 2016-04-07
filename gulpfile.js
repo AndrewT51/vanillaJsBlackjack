@@ -12,7 +12,7 @@ gulp.task('default',['babelify','minify'],() => {
 
 
 gulp.task('babelify',['image'],()=> {
-  return gulp.src(['src/animation.js','src/newDeck.js','src/shuffle.js','src/main.js'])
+  return gulp.src(['src/animation.js','src/curveText.js','src/newDeck.js','src/shuffle.js','src/main.js'])
     .pipe(concat('main.js'))
     .pipe(wrap('document.addEventListener("DOMContentLoaded", ()=>{\n<%= contents %>\n});'))
     .pipe(babel({

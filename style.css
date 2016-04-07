@@ -19,6 +19,11 @@ html,body {
   -ms-transform: rotate(45deg);
 }
 
+#curvy {
+  position:relative;
+  top: -400px;
+  left:-16px;
+}
 
 
 #table {
@@ -193,6 +198,7 @@ button:focus {
   height: 80px;
   background-color: #ECECEC;
   border-radius: 5px;
+  position:relative;
 
 }
 
